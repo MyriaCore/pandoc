@@ -47,9 +47,9 @@ $(document).ready(function() {
     var standalone = ($.QueryString["standalone"] === "1") ? "1" : "0";
     $("#standalone").prop('checked', (standalone === "1"));
     if (text && text != "") {
-       $.getJSON("/cgi-bin/trypandoc", { from: from, to: to, text: text, standalone: standalone },
+       $.getJSON("~/bin/trypandoc", { from: from, to: to, text: text, standalone: standalone },
          function(res) {
-          $("#results").text(res.html);
+          $("#results").html($.parseHTML(res.html));
           $("#version").text(res.version);
           var commandString = "pandoc"
             + ((standalone === "1") ? " --standalone" : "")
@@ -178,7 +178,7 @@ $(document).ready(function() {
         <option value="zimwiki">ZimWiki</option>
       </select>
       <br/>
-      <pre id="results"></pre>
+      <div id="results"></div>
     </div>
   </div>
 </div>
